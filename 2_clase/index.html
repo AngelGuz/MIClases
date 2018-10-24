@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="jquery-3.3.1.min.js"></script>
+
+    <!--<script type="text/javascript" src="script.js"></script> <script type="text/javascript" src="producto.js"></script> -->
+</head>
+
+<body>
+
+    <script>
+      $(document).ready(function(){
+
+          $('#btnGuardar').click(function(){
+            var nombre = $('#txtNombre').val();
+            var descr = $('#txtDescr').val();
+            var precio = $('#txtPrecio').val();
+
+            $('ol').append(`
+                <li> 
+                    ${nombre}<input type='button' value='Eliminar' class='removes'></input>
+                </li>
+            `);
+
+          });
+
+          $('ol').on('click', '.removes', function(){
+              this.parentElement.remove();
+          });
+
+      });  
+    </script>
+
+    <input id="txtNombre" placeholder="Nombre" type="text"></input>
+    <input id="txtDescr" placeholder="Desc..." type="text"></input>
+    <input id="txtPrecio" placeholder="Precio" type="text"></input>
+
+    <button id="btnGuardar">Guardar</button>
+
+    <ol id="add_li">
+    </ol>
+</body>
+
+</html>

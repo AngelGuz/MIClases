@@ -1,0 +1,113 @@
+<html>
+<head>
+	<title>Ejercicio 0.3 Webservice Almacenamiento Remoto (Server-Side)</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript" src="js/libs/jquery-2.1.4.min.js"></script>	
+	<script type="text/javascript" src="js/models/product.js"></script>	
+
+	<!-- Nuestro codigo principal en JavaScript con jQuery -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var listProducts = [];	
+			getProducts();
+			$('#btnAdd').click(function() {	
+
+				var product = new Product($('#txtName').val(), $('#txtDetails').val(), $('#txtPrice').val());	
+
+				$('.product-list').append(product.getHtml());						
+				clearData();
+
+				//Enviamos el producto al web service.
+				sendProduct(product)
+			});
+			$('body').on('click', '.btnDelete', function() {
+				$(this).parent().remove();
+			});
+
+			function sendProduct(product) {
+				//JavaScript Object Notation.
+				//JSON
+				/*var myObject = {
+					myVar: 1,
+					myOtherVari: 'Name'
+				}
+
+				//Convertimos de Objeto a JSON
+				var myJSONObject = JSON.stringify(myObject);
+
+				//Convertimos de JSON a Objeto
+				var myJSONObject2 = JSON.parse(myJSONObject);
+
+				debugger*/
+				
+				var dataToSend = {
+					action: 'addProduct',
+					name: product.name,
+					detail: product.detail,
+					price: product.price
+				}
+
+				$.ajax({
+					url: 'webservice/webservice.php',
+					asyn: true,
+					type: 'POST',
+					data: dataToSend,
+					success: function(respuesta){
+						alert(respuesta);
+					},
+					error: function(x,h,r){
+						alert("Error "+x+h+r);
+					}
+				});
+			}
+
+			function getProducts() {
+				var dataToSend = {
+					action: 'getProducts',
+				}
+
+				$.ajax({
+					url: 'webservice/webservice.php',
+					asyn: true,
+					type: 'POST',
+					data: dataToSend,
+					dataType: 'json',
+
+					success: function(respuesta){
+						alert(respuesta);
+						respuesta.forEach(element => {
+							var product = new Product(respuesta.p_name, respuesta.p_detail, respuesta.p_price);	
+							$('.product-list').append(product.getHtml());
+						});
+					},
+					error: function(x,h,r){
+						alert("Error "+x+h+r);
+					}
+				});
+			}
+
+			function clearData() {
+				$('#txtName').val('');
+				$('#txtDetails').val('');
+				$('#txtPrice').val('');
+			}
+		});
+	</script>
+	<!-- Fin codigo principal -->
+</head>
+<body>
+	<div class="product-list">
+		<!--<div class="product">
+			<p>Fresa</p>
+			<p>Muy rica</p>
+			<p>$125</p>
+			<button class="btnDelete">Borrar</button>
+		</div>-->
+	</div>
+	<div class="add-data">
+		<input id="txtName" type="text" placeholder="Nombre">
+		<input id="txtDetails" type="text" placeholder="Detalles">
+		<input id="txtPrice" type="text" placeholder="Precio">
+		<button id="btnAdd">Agregar</button>
+	</div>
+</body>

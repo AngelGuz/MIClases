@@ -1,0 +1,38 @@
+<!Doctype html>
+<html>
+<head>
+	<title></title>
+
+	<script type="text/javascript">
+	var miVariable = 1;
+	var miBoolean = true;
+
+	function crearPrecio(){
+		var lvlPrecio = document.getElementById('lblPrecio');
+		var lvlPrecio2 = document.getElementById('lblPrecio2');
+
+		if(miBoolean == true){
+			lvlPrecio.textContent = 'Precio: $5.0';
+			lvlPrecio2.textContent = 'Precio: ';
+			miBoolean = false;
+		}
+		else{
+			lvlPrecio.textContent = 'Precio: ';
+			lvlPrecio2.textContent = 'Precio: $5.0';
+			miBoolean = true;
+		}
+	}
+
+	</script>
+
+</head>
+<body>
+
+	<label id="lblPrecio">Precio: </label>
+	<br/>
+	<label id="lblPrecio2">Precio: </label>
+	<br/>
+	<button onClick="crearPrecio();"> Crear </button>
+
+</body>
+</html>

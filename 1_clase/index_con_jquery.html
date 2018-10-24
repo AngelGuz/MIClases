@@ -1,0 +1,49 @@
+<!Doctype html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+			//Funcion anonima: Funcion que no tiene 
+			//nombre
+			//Selector
+			$('#btnCrate').click(function (){
+
+				//Selector por ID
+				$('#lblText').text("Selector por ID");
+
+				//Selector por Clase
+				$('.clsText').text("Selector por Clase");
+
+				//Selector por Etiqueta
+				//$('label').text("selector por etiqueta");
+
+				//Selector por Atributo
+				$('[precio=1]').text("Selector por Atributo");
+			});
+		})
+	</script>
+
+</head>
+<body>
+
+	<label id="lblText">Texto</label> <br/>
+
+	<label class="clsText">Texto</label> <br/>
+	<label class="clsText">Texto</label> <br/>
+	<label class="clsText">Texto</label> <br/>
+
+	<label>Texto</label> <br/>
+
+	<label precio="1"> Texto </label> <br/>
+	<label precio="2"> Texto </label> <br/>
+	<label precio="2"> Texto </label> <br/>
+	<label precio="1"> Texto </label> <br/>
+
+	<button id="btnCrate"> Crear </button>
+
+</body>
+</html>
